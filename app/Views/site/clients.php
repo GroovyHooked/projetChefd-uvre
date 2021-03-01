@@ -2,14 +2,18 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-12">
-                <h3 class="text-center">Cartes inutilisées</h3>
+                <div class="retourAccueil">
+                    <a href="<?= base_url('dashboard') ?>">
+                        <div id="triangle"></div>
+                        <div class="triangleBis">Accueil</div>
+                    </a>
+                </div>
             </div>
         </div>
-        <div class="retourAccueil">
-            <a href="<?= base_url('dashboard') ?>">
-                <div id="triangle"></div>
-                <div class="triangleBis">Accueil</div>
-            </a>
+        <div class="row">
+            <div class="col-12">
+                <h3 class="text-center">Cartes Offertes par:</h3>
+            </div>
         </div>
         <div class="row">
             <table class="table table-striped">
@@ -24,19 +28,19 @@
                 <tbody>
                 <?php foreach ($clients as $row) { ?>
                     <tr>
-                        <th scope="row"><?= $row->id ?></th>
-                        <td><?= $row->firstname ?></td>
-                        <td><?= $row->lastname ?></td>
-                        <td><a href="mailto:<?= $row->email ?>"><?= $row->email ?></a></td>
+                        <th scope="row"><?= $row['id'] ?></th>
+                        <td><?= $row['firstname'] ?></td>
+                        <td><?= $row['lastname'] ?></td>
+                        <td><a href="mailto:<?= $row['email'] ?>"><?= $row['email'] ?></a></td>
                         <td>
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-primary" data-toggle="modal"
-                                    data-target="#modal<?= $row->id ?>">
+                                    data-target="#modal<?= $row['id'] ?>">
                                 +
                             </button>
 
                             <!-- Modal -->
-                            <div class="modal" id="modal<?= $row->id ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal" id="modal<?= $row['id'] ?>" tabindex="-1" role="dialog" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-scrollable" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -49,8 +53,8 @@
                                             <div class="container">
                                                 <div class="row">
                                                     <div class="col-10 offset-2">
-                                                        <p><a href="tel:<?= $row->phone ?>"><?= $row->phone ?></a></p>
-                                                        <p><?= $row->address ?> </p>
+                                                        <p><a href="tel:<?= $row['phone'] ?>"><?= $row['phone'] ?></a></p>
+                                                        <p><?= $row['address'] ?> </p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -68,6 +72,7 @@
                 <?php } ?>
                 </tbody>
             </table>
+            <?= $pager->links() ?>
         </div>
     </div>
 </div>

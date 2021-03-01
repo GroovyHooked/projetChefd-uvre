@@ -3,10 +3,11 @@
         <div class="col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3 mt-5 pb-3 form-wrapper pt-4">
             <div class="container">
                 <h3 class="text-center">Mot de passe oublié</h3>
-                <form class="" action="<?= base_url('forgotPass')?>" method="post">
+                <form class="" action="<?= base_url('forgotPass') ?>" method="post">
                     <div class="form-group">
                         <label for="email">Adresse email</label>
-                        <input type="text" class="form-control" name="email" id="email" value="<?= set_value('email') ?>">
+                        <input type="text" class="form-control" name="email" id="email"
+                               value="<?= set_value('email') ?>">
                     </div>
                     <?php if (isset($validation)) : ?>
                         <div class="col-12">
@@ -44,7 +45,7 @@
                             <button type="submit" class="btn btn-outline-secondary">Envoyer</button>
                         </div>
                         <div class="col-12 col-sm-8 text-right">
-                            <a href="/CI4/public">Page de connexion</a>
+                            <a href="<?= base_url('index') ?>">Page de connexion</a>
                         </div>
                     </div>
                 </form>

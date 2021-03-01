@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-11 border mt-4 ml-2 mr-2">
+        <div class="col-11 border mt-4 mb-4 ml-2 mr-2">
             <div class="container mt-5">
                 <div class="row ">
                     <div class="col-12">
@@ -63,6 +63,13 @@
                     <div class="col-6">
                         <a href="<?= base_url('clients') ?>">
                             <button type="button" class="btn btn-outline-secondary w-100">Acquéreurs</button>
+                        </a>
+                    </div>
+                </div>
+                <div class="row mt-5 mb-5 justify-content-center">
+                    <div class="col-12 col-lg-6">
+                        <a href="<?= base_url('accounting') ?>">
+                            <button type="button" class="btn btn-outline-secondary w-100">Comptabilité</button>
                         </a>
                     </div>
                 </div>

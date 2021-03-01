@@ -85,35 +85,4 @@
         </div>
     </div>
 </div>
-<div class="container">
-    <div class="row">
-        <div class="col-6 offset-3">
-            <?php
-            if (isset($tokenTime)) : ?>
-                <div class="alert alert-success" role="alert">
-                    <pre>
-<?php
-var_dump($tokenTime);
-?>
-</pre>
-                </div>
-            <?php endif; ?>
-        </div>
-    </div>
-</div>
-<div class="container">
-    <div class="row">
-        <div class="col-6 offset-3">
-            <?php
-            if (isset($tokenExist)) : ?>
-                <div class="alert alert-success" role="alert">
-                    <pre>
-<?php
-var_dump($tokenExist);
-?>
-</pre>
-                </div>
-            <?php endif; ?>
-        </div>
-    </div>
-</div>
+

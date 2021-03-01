@@ -8,19 +8,6 @@ class Cards extends Model
 
     protected $primaryKey = 'id';
     protected $useAutoIncrement = true;
-    /*protected $validationRules = [
-        'user_lastname' => 'required|min_length[3]|max_length[50]',
-        'client_lastname' =>'required|min_length[3]|max_length[50]',
-        'user_firstname' => 'required|min_length[3]|max_length[50]',
-        'client_firstname' => 'required|min_length[3]|max_length[50]',
-        'user_email' => 'required|valid_email',
-        'client_email' => 'required|valid_email',
-        'user_address' => 'required',
-        'client_address' => 'required',
-        'user_phone' => 'required|alpha_numeric_punct|min_length[8]|max_length[255]',
-        'client_phone' => 'required|alpha_numeric_punct|min_length[8]|max_length[255]',
-        'value' => 'required|numeric',
-    ];*/
     protected $allowedFields = [
         'user_email',
         'value',
@@ -36,52 +23,117 @@ class Cards extends Model
         'giftedFirstname',
         'giftedAddress',
         'giftedPhone',
-        'status'
+        'status',
+        'company',
+        'isSent'
     ];
 
-    public function showUserCards($var){
+    public function isSentInfo($var){
+        $query = $this->select('isSent')
+            ->where('id', $var)
+            ->get()
+            ->getResult();
+        foreach ($query as $row){
+            if ($row->isSent == 0){
+                return false;
+            } elseif($row->isSent == 1) {
+                return true;
+            }
+        }
+    }
+    public function updateIsSentStatus($var)
+    {
+        return $this->set('isSent', 1)
+                    ->where('id', $var)
+                    ->update();
+    }
+    public function showUserCards($var)
+    {
         $query = $this->where('user_email', $var)
-                    ->get()
-                    ->getResult();
+                      ->get()
+                      ->getResult();
         $result = json_encode($query);
         $object = json_decode($result);
-        return  $object;
+        return $object;
     }
-
-    public function getUsedCards($var){
+    public function getInfoFromId($var){
+        return $this->where('id', $var)
+                    ->get()
+                    ->getResult();
+    }
+    public function getUsedCards($var)
+    {
         return $this->where('status', 'U')
                     ->where('user_email', $var)
                     ->get()
                     ->getResult();
     }
 
-    public function getPendingCards($var){
+    public function getPendingCards($var)
+    {
         return $this->where('status', 'N')
                     ->where('user_email', $var)
                     ->get()
                     ->getResult();
     }
 
-    public function getCardCodeQr($var){
+    public function getCardCodeQr($var)
+    {
         return $this->where('card_uniqid', $var)
                     ->get()
                     ->getResult();
     }
 
-    public function updateCardStatus($var){
+    public function updateCardStatus($var)
+    {
         return $this->set('status', 'U')
                     ->where('card_uniqid', $var)
                     ->update();
     }
 
-    public function verifyCardStatus($var){
-         $result = $this->select('status')
-                     ->where('card_uniqid', $var)
-                     ->get()
-                     ->getResult();
-         foreach ($result as $row){
-             return $row->status;
-         }
+    public function verifyCardStatus($var)
+    {
+        $result = $this->select('status')
+                        ->where('card_uniqid', $var)
+                        ->get()
+                        ->getResult();
+        foreach ($result as $row) {
+            return $row->status;
+        }
         return NULL;
+    }
+
+    public function getSumCreated($var)
+    {
+        return $this->selectSum('value')
+                    ->where('user_email', $var)
+                    ->get()
+                    ->getResult();
+    }
+
+    public function getSumUsed($var)
+    {
+        return $this->selectSum('value')
+                    ->where('user_email', $var)
+                    ->where('status', 'U')
+                    ->get()
+                    ->getResult();
+    }
+
+    public function getSumPending($var)
+    {
+        return $this->selectSum('value')
+                    ->where('user_email', $var)
+                    ->where('status', 'N')
+                    ->get()
+                    ->getResult();
+    }
+
+    public function howManyCardsSold($var)
+    {
+        return $this->selectCount('user_email')
+                    ->where('user_email', $var)
+                    ->get()
+                    ->getResult();
     }
 }

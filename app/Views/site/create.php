@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <form action="<?= site_url('create') ?>" method="post">
+            <form action="<?= site_url('create') ?>" method="post" id="loginFormCreate">
                 <div class="container">
                     <div class="row">
                         <div class="col-12 mt-3">
@@ -27,46 +27,46 @@
                             </div>
                             <div class="row">
                                 <div class="form-group w-75 col-12">
-                                    <label for="lastname" class="col-sm-2 col-form-label">Nom</label>
+                                    <label for="lastname" class="offset-1 col-form-label">Nom</label>
                                     <div class="col-sm-12">
                                         <input type="text" class="form-control" placeholder="Nom" name="user_lastname"
-                                               value="<?= set_value('lastname') ?>">
+                                               value="" id="createClientLastname">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group w-75 col-12">
-                                    <label for="firstname" class="col-sm-2 col-form-label">Prenom</label>
+                                    <label for="firstname" class="offset-1 col-form-label">Prenom</label>
                                     <div class="col-sm-12">
                                         <input type="text" class="form-control" placeholder="Prénom"
-                                               name="user_firstname" value="<?= set_value('firstname') ?>">
+                                               name="user_firstname" value="" id="createClientFirstname">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group w-75 col-12">
-                                    <label for="email" class="col-sm-2 col-form-label">Email</label>
+                                    <label for="email" class="offset-1 col-form-label">Email</label>
                                     <div class="col-sm-12">
                                         <input type="email" class="form-control" placeholder="Email" name="user_email"
-                                               value="<?= set_value('user_email') ?>">
+                                               value="" id="createClientEmail">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group w-75 col-12">
-                                    <label for="address" class="col-sm-6 col-form-label">Adresse</label>
+                                    <label for="address" class="offset-1 col-form-label">Adresse</label>
                                     <div class="col-sm-12">
                                         <input type="text" class="form-control " placeholder="Adresse"
-                                               name="user_address" value="<?= set_value('user_address') ?>">
+                                               name="user_address" value="" id="createClientAddress">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group w-75 col-12">
-                                    <label for="phone" class="col-sm-6 col-form-label">N° de téléphone</label>
+                                    <label for="phone" class="offset-1 col-form-label">N° de téléphone</label>
                                     <div class="col-sm-12">
                                         <input type="text" class="form-control" placeholder="N° de téléphone"
-                                               name="user_phone" value="<?= set_value('user_phone') ?>">
+                                               name="user_phone" value="" id="createClientPhone">
                                     </div>
                                 </div>
                             </div>
@@ -81,47 +81,47 @@
                             </div>
                             <div class="row">
                                 <div class="form-group w-75 col-12">
-                                    <label for="lastname" class="col-sm-2 col-form-label">Nom</label>
+                                    <label for="lastname" class="offset-1 col-form-label">Nom</label>
                                     <div class="col-sm-12">
                                         <input type="text" class="form-control" placeholder="Nom" name="client_lastname"
-                                               value="<?= set_value('lastname') ?>">
+                                               value="" id="createGiftedLastname">
                                     </div>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="form-group w-75 col-12">
-                                    <label for="firstname" class="col-sm-2 col-form-label">Prenom</label>
+                                    <label for="firstname" class="offset-1 col-form-label">Prenom</label>
                                     <div class="col-sm-12">
                                         <input type="text" class="form-control" placeholder="Prénom"
-                                               name="client_firstname" value="<?= set_value('firstname') ?>">
+                                               name="client_firstname" value="" id="createGiftedFirstname">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group w-75 col-12">
-                                    <label for="email" class="col-sm-2 col-form-label">Email</label>
+                                    <label for="email" class="offset-1 col-form-label">Email</label>
                                     <div class="col-sm-12">
                                         <input type="email" class="form-control" placeholder="Email" name="client_email"
-                                               value="<?= set_value('user_email') ?>">
+                                               value="" id="createGiftedEmail">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group w-75 col-12">
-                                    <label for="address" class="col-sm-6 col-form-label">Adresse</label>
+                                    <label for="address" class="offset-1 col-form-label">Adresse</label>
                                     <div class="col-sm-12">
                                         <input type="text" class="form-control " placeholder="Adresse"
-                                               name="client_address" value="<?= set_value('user_address') ?>">
+                                               name="client_address" value="" id="createGiftedAddress">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group w-75 col-12">
-                                    <label for="phone" class="col-sm-6 col-form-label">N° de téléphone</label>
+                                    <label for="phone" class="offset-1 col-form-label">N° de téléphone</label>
                                     <div class="col-sm-12">
                                         <input type="text" class="form-control" placeholder="N° de téléphone"
-                                               name="client_phone" value="<?= set_value('user_phone') ?>">
+                                               name="client_phone" value="" id="createGiftedPhone">
                                     </div>
                                 </div>
                             </div>
@@ -134,7 +134,7 @@
                         <div class="input-group">
                             <label for="value" class="col-12 col-sm-12 col-form-label">Valeur de la carte</label>
                             <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
-                                   name="value">
+                                   name="value" id="createCardValue">
                             <div class="input-group-append">
                                 <span class="input-group-text">€</span>
                             </div>
@@ -164,7 +164,9 @@
                     <div class="row justify-content-center">
                         <div class="form-group">
                             <div class="col-12">
-                                <button type="submit" class="btn btn-outline-secondary" name="submit">Création</button>
+                                <button type="submit" data-aos="zoom-in" class="btn btn-outline-secondary" name="submit" id="createButton"
+                                        disabled="disabled">Création
+                                </button>
                             </div>
                         </div>
                     </div>

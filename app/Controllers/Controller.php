@@ -50,6 +50,7 @@ class Controller extends BaseController
             'firstname' => $user['firstname'],
             'lastname' => $user['lastname'],
             'email' => $user['email'],
+            'company' => $user['company'],
             'isLoggedIn' => true,
         ];
         session()->set($data);
@@ -71,25 +72,19 @@ class Controller extends BaseController
                 $user_email = $this->request->getVar('email');
                 $bdd = new UserModel();
                 $exist = $bdd->checkIfUserExist($user_email);
-
                 if (!$exist) {
                     $session = session();
                     $session->setFlashdata('fail', 'Vous n\'etes pas inscrit');
                     return redirect()->to('forgotPass');
-
                 } else {
                     $session = session();
                     $session->setFlashdata('success', 'Mail de réinitialisation envoyé');
-
                     $token = uniqid();
-
                     $time = Time::parse('now + 10 minute', 'Europe/Paris');
                     $token_exp = $time->toDateTimeString();
-
                     $bdd = new UserModel();
                     $user_email = $this->request->getVar('email');
                     $bdd->insertTokenData($token, $token_exp, $user_email);
-
                     $email = \Config\Services::email();
                     $email->setFrom('thomascariot@gmail.com', 'Thomas Cariot');
                     $email->setTo($user_email);
@@ -114,6 +109,7 @@ class Controller extends BaseController
 
         if ($this->request->getMethod() == 'post') {
             $rules = [
+                'company' => 'required|min_length[3]|max_length[50]',
                 'lastname' => 'required|alpha|min_length[3]|max_length[20]',
                 'firstname' => 'required|alpha|min_length[3]|max_length[20]',
                 'email' => 'required|min_length[6]|max_length[50]|valid_email|is_unique[users.email]',
@@ -131,6 +127,7 @@ class Controller extends BaseController
                     'lastname' => $this->request->getVar('lastname'),
                     'email' => $this->request->getVar('email'),
                     'password' => $this->request->getVar('password'),
+                    'company' => $this->request->getVar('company')
                 ];
                 $bdd->save($newData);
 
@@ -146,8 +143,7 @@ class Controller extends BaseController
 
     public function resetpass()
     {
-
-
+        /* récupération du token dans l'url */
         $request = \Config\Services::request();
         $token = $request->getGet();
         $data['token'] = $token;
@@ -164,12 +160,13 @@ class Controller extends BaseController
 
         if ($tokenExist && $tokenTime > $time) {
             $data = [
-                'message' => 'ça fonctionne',
+                /*'message' => 'ça fonctionne',*/
                 'title' => "Réinitialisation du mot de passe",
                 'token' => $token,
                 'tokenExist' => $tokenExist,
                 'tokenTime' => $tokenTime
             ];
+
             if ($this->request->getMethod() == 'post') {
                 $rules = [
                     'password' => 'required|min_length[8]|max_length[255]',

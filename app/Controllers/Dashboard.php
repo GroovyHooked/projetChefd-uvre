@@ -29,7 +29,6 @@ class Dashboard extends BaseController
     public function create()
     {
         $data['title'] = 'création';
-        $bdd = new Cards();
         if ($this->request->getMethod() == 'post') {
             $rules = [
                 'user_lastname' => 'required|min_length[3]|max_length[50]',
@@ -44,13 +43,14 @@ class Dashboard extends BaseController
                 'client_phone' => 'required|alpha_numeric_punct|min_length[8]|max_length[255]',
                 'value' => 'required|numeric',
             ];
-            if (!$bdd->validate($rules)) {
+            if (!$this->validate($rules)) {
 
                 $data['validation'] = $this->validator;
             } else {
 
                 $qrcodeId = uniqid();
                 $user_email = session()->get('email');
+                $company = session()->get('company');
 
                 $clientEmail = $this->request->getVar('user_email');
                 $clientLastname = $this->request->getVar('user_lastname');
@@ -64,8 +64,9 @@ class Dashboard extends BaseController
                 $giftedPhone = $this->request->getVar('client_phone');
                 $value = $this->request->getVar('value');
                 $status = 'N';
+                $isSent = 0;
 
-                $qrCode = new QrCode('Carte cadeau de Mr ou Mme ' . $giftedLastname . ' ' . $giftedFirstname . ', d\'une valeur de ' . $value . ' €. L\'identifiant de cette carte cadeau est le: ' . $qrcodeId);
+                $qrCode = new QrCode('http://localhost/CI4/public/codeqr/' . $qrcodeId /*.' Carte cadeau de Mr ou Mme ' . $giftedLastname . ' ' . $giftedFirstname . ', d\'une valeur de ' . $value . ' €. L\'identifiant de cette carte cadeau est le: ' . $qrcodeId*/);
                 $qrCode->setSize(300);
                 $qrCode->setMargin(10);
                 $qrCode->writeFile('qrcode/' . $qrcodeId . '.png');
@@ -109,11 +110,17 @@ class Dashboard extends BaseController
                     'giftedFirstname' => $giftedFirstname,
                     'giftedAddress' => $giftedAddress,
                     'giftedPhone' => $giftedPhone,
-                    'status' => $status
+                    'status' => $status,
+                    'company' => $company,
+                    'isSent' => $isSent
                 ];
                 $bd_cards = new Cards();
                 $bd_cards->insert($cardData);
 
+                $message = 'Une carte d\un montant de ' . $value . ' vient d\'être générée';
+                send_telegram_callmebot($message);
+
+                #$data['test'] = d($clientData, $giftedData, $cardData);
                 $session = session();
                 $session->setFlashdata('success', 'Carte créée');
                 return redirect()->to('/CI4/public/dashboard');
@@ -138,27 +145,60 @@ class Dashboard extends BaseController
     {
         $user_email = session()->get('email');
         $bdd = new Cards();
+
+        //$test = $bdd->getSumCreated($user_email);
         $data = [
-            'users' => $bdd->whereIn('user_email', [$user_email])->paginate(10),
+            'users' => $bdd->whereIn('user_email', [$user_email])->paginate(5),
             'pager' => $bdd->pager,
+            'user_email' => session()->get('email'),
+            'title' => 'Carte émises',
         ];
+        if ($this->request->getMethod() == 'post') {
+            $id = $this->request->getVar('personnalId');
 
-        $data['user_email'] = session()->get('email');
-        $data['title'] = 'Carte émises';
+            $bdd = new Cards();
+            $cardData = $bdd->getInfoFromId($id);
+            $data['test'] = $cardData;
+            $bdd->updateIsSentStatus($id);
+            foreach ($cardData as $row) {
+                $giftedEmail = $row->gifted_email;
+                $giftedLastname = $row->giftedLastname;
+                $giftedFirstname = $row->giftedFirstname;
+                $giftedValue = $row->value;
+                $client_email = $row->client_email;
+                $company = $row->company;
+                $clientFirstname = $row->clientFirstname;
+                $clientLastname = $row->clientLastname;
 
-
-        echo view('templates/header', $data);
-        echo view('site/created', $data);
-        echo view('templates/footer');
+                $email = \Config\Services::email();
+                $email->setFrom('thomascariot@gmail.com', 'Thomas Cariot');
+                $email->setTo($giftedEmail);
+                $email->setSubject('Carte Cadeau à l\'attention de ' . $giftedLastname . ' ' . $giftedFirstname . ' .');
+                $email->setMessage('Carte cadeau de l\'établissement '.$company.' d\'une valeur de ' . $giftedValue . ' €. Cette carte cadeau vous a été offerte par ' . $clientLastname . ' '.$clientFirstname.'. Voici son adresse mail: '. $client_email. ' ');
+                $email->send();
+                #$test1 = $email->send();
+                #$data['test1'] = $test1;
+            }
+            $session = session();
+            $session->setFlashdata('success', 'Carte envoyée par mail');
+            echo view('templates/header', $data);
+            echo view('site/created', $data);
+            echo view('templates/footer');
+        } else {
+            echo view('templates/header', $data);
+            echo view('site/created', $data);
+            echo view('templates/footer');
+        }
     }
 
     public function used()
     {
-        $data['title'] = 'Cartes utilisées';
-
         $bdd = new Cards();
-        $user_email = session()->get('email');
-        $data['used'] = $bdd->getUsedCards($user_email);
+        $data = [
+            'title' => 'Cartes utilisées',
+            'used' => $bdd->whereIn('status', ['U'])->paginate(5),
+            'pager' => $bdd->pager,
+        ];
 
         echo view('templates/header', $data);
         echo view('site/used', $data);
@@ -167,12 +207,12 @@ class Dashboard extends BaseController
 
     public function pending()
     {
-        $data['title'] = 'Cartes en circulation';
-
         $bdd = new Cards();
-        $user_email = session()->get('email');
-        $data['pending'] = $bdd->getPendingCards($user_email);
-
+        $data = [
+            'title' => 'Cartes en circulation',
+            'pending' => $bdd->whereIn('status', ['N'])->paginate(5),
+            'pager' => $bdd->pager,
+        ];
         echo view('templates/header', $data);
         echo view('site/pending', $data);
         echo view('templates/footer');
@@ -180,10 +220,13 @@ class Dashboard extends BaseController
 
     public function clients()
     {
-        $data['title'] = 'Clients';
         $user_email = session()->get('email');
         $bdd = new UserClient();
-        $data['clients'] = $bdd->getUserClients($user_email);
+        $data = [
+            'title' => 'Clients',
+            'clients' => $bdd->whereIn('user_email', [$user_email])->paginate(5),
+            'pager' => $bdd->pager,
+        ];
 
         echo view('templates/header', $data);
         echo view('site/clients', $data);
@@ -223,13 +266,15 @@ class Dashboard extends BaseController
 
     public function giftedclients()
     {
-        $data['title'] = 'Clients';
-        $user_email = session()->get('email');
         $bdd = new GiftedClient();
-        $data['clients'] = $bdd->getGiftedClient($user_email);
-
+        $user_email = session()->get('email');
+        $data = [
+            'title' => 'Bénéficiaires',
+            'clients' => $bdd->whereIn('user_email', [$user_email])->paginate(5),
+            'pager' => $bdd->pager,
+        ];
         echo view('templates/header', $data);
-        echo view('site/clients', $data);
+        echo view('site/giftedclients', $data);
         echo view('templates/footer');
     }
 
@@ -272,6 +317,28 @@ class Dashboard extends BaseController
         $data['title'] = 'creation';
         echo view('templates/Header', $data);
         echo view('site/newcreate');
+        echo view('templates/footer');
+    }
+
+    public function accounting()
+    {
+        $user_email = session()->get('email');
+        $bdd = new Cards();
+        $total = $bdd->getSumCreated($user_email);
+        $totalUsed = $bdd->getSumUsed($user_email);
+        $totalPending = $bdd->getSumPending($user_email);
+        $nbOfCards = $bdd->howManyCardsSold($user_email);
+        #$data['test'] = d($total, $totalUsed, $totalPending);
+        $data = [
+            'title' => 'Comptabilité',
+            'total' => $total,
+            'totalUsed' => $totalUsed,
+            'totalPending' => $totalPending,
+            'nbOfCards' => $nbOfCards
+            #'test' => d($total, $totalUsed, $totalPending)
+        ];
+        echo view('templates/Header', $data);
+        echo view('site/accounting');
         echo view('templates/footer');
     }
 }

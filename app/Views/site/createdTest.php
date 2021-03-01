@@ -40,33 +40,33 @@ use App\Models\Cards;
             </div>
         </div>
         <div class="row">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th></th>
-                    <th>Nom</th>
-                    <th>Prénom</th>
-                    <th>Montant</th>
-                </tr>
-                </thead>
-                <tbody>
+            <div class="table table-striped">
+                <div >
+                <div class="d-flex flex-row justify-content-around">
+                    <div></div>
+                    <div>Nom</div>
+                    <div>Prénom</div>
+                    <div>Montant</div>
+                </div>
+                </div>
+                <div>
                 <?php foreach ($users
 
                 as $row) { ?>
                 <form action="<?= base_url('created') ?>" method="post">
-                    <tr>
-                        <th scope="row">
+                    <div class="d-flex flex-row justify-content-around">
+                        <div class="col">
                             <?= $row['id'] ?>
-                        </th>
-                        <td>
+                        </div>
+                        <div class="col">
                             <?= $row['giftedFirstname'] ?>
                             <input type="hidden" name="giftedFirstname" value="<?= $row['giftedFirstname'] ?>">
-                        </td>
-                        <td>
+                        </div>
+                        <div class="col">
                             <?= $row['giftedLastname'] ?>
                             <input type="hidden" name="giftedLastname" value="<?= $row['giftedLastname'] ?>">
-                        </td>
-                        <td>
+                        </div>
+                        <div class="col">
                             <?= number_to_currency($row['value'], 'EUR', 'fr', 2) ?>
                             <input type="hidden" name="value"
                                    value="<?= number_to_currency($row['value'], 'EUR', 'fr', 2) ?>">
@@ -76,27 +76,27 @@ use App\Models\Cards;
                                    value="<?= $row['client_email'] ?>">
                             <input type="hidden" name="id"
                                    value="<?= $row['id'] ?>">
-                        </td>
-                        <td>
+                        </div>
+                        <div class="col">
                             <?php
                             $bdd = new Cards();
                             $sentStatus = $bdd->isSentInfo($row['id']);
                             //var_dump($bdd->isSentInfo($row['id']));
                             if($sentStatus == false ){
-                            ?>
+                                ?>
                                 <button type="submit" class="btn btn-primary btn-sm" value="<?= $row['id'] ?>"
-                                    name="personnalId">Send
+                                        name="personnalId">Send
                                 </button>
                             <?php } elseif ($sentStatus == true){ ?>
                                 <button type="submit" class="btn btn-primary btn-sm" value="<?= $row['id'] ?>"
                                         name="personnalId" disabled="disabled">Done
                                 </button>
-                                <!--<button type="submit" class="btn btn-primary btn-sm" value=""
+                                <button type="submit" class="btn btn-primary btn-sm" value="<?= $row['id'] ?>"
                                         name="personnalId">@
-                                </button>-->
+                                </button>
                             <?php } ?>
-                        </td>
-                        <td>
+                        </div>
+                        <div class="col">
 
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-primary" data-toggle="modal"
@@ -142,12 +142,12 @@ use App\Models\Cards;
                                     </div>
                                 </div>
                             </div>
-                        </td>
-                    </tr>
+                        </div>
+                    </div>
                     <?php } ?>
-                </tbody>
+                    </div>
                 </form>
-            </table>
+            </div>
             <?= $pager->links() ?>
         </div>
     </div>

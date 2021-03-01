@@ -1,11 +1,12 @@
-:root{
-    --header: #4F5D75;
-    --space: #2D3142;
+:root {
+    --navyBlue: #4F5D75;
+    --space: #222841;
     --gris: #BFC0C0;
     --blanc: #FFFFFF;
     --mandarin: #EF8354;
     --grisClair: #d3d3d3;
     --grisFonce: #495057;
+
     /******FUNKY*******/
     --jaune: #f9c80e;
     --orange: #f86624;
@@ -13,68 +14,279 @@
     --violet: #662e9b;
     --pastelB: #43bccd;
 }
-
-#btn-dark1 {
-    padding: 4px;
-}
-#btn-dark2{
-    padding: 4px;
-}
-.footer{
-    background-color: var(--header);
-}
-.header-top{
-    background-color: var(--header);
-    z-index: 5;
-}
 body {
     background: var(--blanc);
     color: var(--mandarin);
+    font-family: Georgia, serif;
+}
+.table td{
+    padding: 0.4rem;
 }
 #header {
     height: 5rem;
 }
+
+.header-top {
+    background-color: var(--navyBlue);
+    z-index: 5;
+}
+/* Combinaisons   */
 #page-container {
     position: relative;
     min-height: 100vh;
 }
+
 #content-wrap {
     padding-bottom: 5rem;
 }
+
 #footer {
     position: absolute;
     bottom: 0;
     width: 100%;
     height: 5rem;
 }
-.btn-primary{
+
+.footer {
+    background-color: var(--navyBlue);
+}
+/* Dark Mode Button */
+#btn-dark1 {
+    padding: 4px;
+}
+.pagination{
+    width: 150%;
+    justify-content: space-evenly;
+    margin-left: 5px;
+}
+/****************
+    Page Login
+    (Transitions sur "Connexion")
+    ******************/
+span.ccc{
+    opacity: 0;
+    margin-right: -5px;  /* supprime l'espacement entre les lettres span mise à la ligne dans le html */
+}
+.cc{
+    position: relative;
+    animation: p1 0.3s linear 1;
+    animation-fill-mode: forwards;    /*      C          */
+}
+
+@keyframes p1 {
+    0%{opacity: 0;}
+    25%{opacity: 0.3;}
+    50%{opacity: 0.6;}
+    75%{opacity: 0.9;}
+    100%{opacity: 1;}
+}
+.co1{
+    position: relative;
+    animation: p2 0.3s linear 1;     /*      O          */
+    animation-delay: 0.15s;
+    animation-fill-mode: forwards;
+}
+@keyframes p2 {
+    0%{opacity: 0;}
+    25%{opacity: 0.3;}
+    50%{opacity: 0.6;}
+    75%{opacity: 0.9;}
+    100%{opacity: 1;}
+}
+.cn1{
+    position: relative;
+    animation: p3 0.3s linear 1;      /*      N         */
+    animation-delay: 0.3s;
+    animation-fill-mode: forwards;
+}
+@keyframes p3 {
+    0%{opacity: 0;}
+    25%{opacity: 0.3;}
+    50%{opacity: 0.6;}
+    75%{opacity: 0.9;}
+    100%{opacity: 1;}
+}
+.cn2{
+    position: relative;
+    animation: p4 0.3s linear 1;     /*      N         */
+    animation-delay: 0.45s;
+    animation-fill-mode: forwards;
+}
+@keyframes p4 {
+    0%{opacity: 0;}
+    25%{opacity: 0.3;}
+    50%{opacity: 0.6;}
+    75%{opacity: 0.9;}
+    100%{opacity: 1;}
+}
+.ce{
+    animation: p5 0.3s linear 1;      /*      E         */
+    animation-delay: 0.6s;
+    animation-fill-mode: forwards;
+}
+@keyframes p5 {
+    0%{opacity: 0;}
+    25%{opacity: 0.3;}
+    50%{opacity: 0.6;}
+    75%{opacity: 0.9;}
+    100%{opacity: 1;}
+}
+.cx{
+    animation: p6 0.75s linear 1;     /*      X         */
+    animation-delay: 0.75s;
+    animation-fill-mode: forwards;
+}
+@keyframes p6 {
+    0%{opacity: 0;}
+    25%{opacity: 0.3;}
+    50%{opacity: 0.6;}
+    75%{opacity: 0.9;}
+    100%{opacity: 1;}
+}
+.ci{
+    animation: p7 0.9s linear 1;     /*      I         */
+    animation-delay: 0.9s;
+    animation-fill-mode: forwards;
+}
+@keyframes p7 {
+    0%{opacity: 0;}
+    25%{opacity: 0.3;}
+    50%{opacity: 0.6;}
+    75%{opacity: 0.9;}
+    100%{opacity: 1;}
+}
+.co2{
+    animation: d1 0.3s linear 1;     /*      O         */
+    animation-delay: 1.05s;
+    animation-fill-mode: forwards;
+}
+@keyframes d1 {
+    0%{opacity: 0;}
+    25%{opacity: 0.3;}
+    50%{opacity: 0.6;}
+    75%{opacity: 0.9;}
+    100%{opacity: 1;}
+}
+.cn3{
+    animation: d2 0.3s linear 1;      /*      N         */
+    animation-delay: 1.2s;
+    animation-fill-mode: forwards;
+}
+@keyframes d2 {
+    0%{opacity: 0;}
+    25%{opacity: 0.3;}
+    50%{opacity: 0.6;}
+    75%{opacity: 0.9;}
+    100%{opacity: 1;}
+}
+/****************
+   Fin Partie Transitions sur "Connexion"
+    ******************/
+
+/* Modal button + "send" button */
+.btn-primary {
     background-color: var(--mandarin);
     border-color: var(--mandarin);
+
 }
-.btn-primary:hover{
+
+.btn-primary:hover {
     background-color: var(--orange);
     border-color: var(--orange);
 }
-.btn-outline-secondary{
-    background-color: var(--header);
+/* Dashboard button */
+.btn-outline-secondary {
+    background-color: var(--navyBlue);
     color: var(--blanc);
-    border-color: var(--header);
+    border-color: var(--navyBlue);
 }
-.btn-outline-secondary:hover{
+
+.btn-outline-secondary:hover {
     background-color: var(--space);
 }
-.dropdown-toggle{
-    background-color: var(--header);
+/* Dropdown menu */
+.dropdown-toggle {
+    background-color: var(--navyBlue);
     color: var(--blanc);
     border-color: var(--blanc);
 }
-.dropdown-toggle:hover{
+
+.dropdown-toggle:hover {
     background-color: var(--space);
 }
+
 .dropdown-toggle:active {
     background-color: var(--space);
     box-shadow: 0 0 0 .2rem var(--space);
 }
+
+/********************
+    Go Back Arrow
+********************/
+#triangle {
+    display: inline-block;
+    height: 0;
+    width: 0;
+    position: absolute;
+    left: 7px;
+    top: 10px;
+    border-top: 7px solid transparent;
+    border-right: 13px solid var(--navyBlue);
+    border-bottom: 7px solid transparent;
+    transition: border 0.3s ease-in;
+}
+
+.triangleBis {
+    color: var(--navyBlue);
+    display: inline-block;
+    position: relative;
+    top: -5px;
+    left: 5px;
+    transition: color 0.3s ease-in;
+}
+
+.retourAccueil {
+    position: relative;
+    text-align: center;
+    width: 95px;
+    height: 36px;
+    line-height: 43px;
+    margin-bottom: 10px;
+    color: var(--space);
+    background: var(--grisClair);
+    border-radius: 4px;
+    z-index: 1;
+    transition: background 0.3s ease-in;
+}
+.retourAccueil:after{
+    content:"";
+    position: absolute;
+    left: 0;
+    width: 90px;
+    height: 36px;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: -1;
+    transition: all 0.3s ease-in;
+    transform: scale(0);
+    transform-origin: center;
+}
+.retourAccueil:hover:after {
+    transform: scale(1);
+}
+.retourAccueil:hover {
+    color: whitesmoke;
+    background-color: var(--navyBlue);
+}
+
+.retourAccueil:hover #triangle {
+    border-right: 16px solid var(--blanc);
+}
+
+.retourAccueil:hover .triangleBis {
+    color: var(--blanc);
+}
+
 
 /*******************
     Mode Sombre
@@ -83,80 +295,56 @@ body {
     background-color: black;
     color: white;
 }
-.sousBody-dark{
+
+.sousBody-dark {
     background-color: var(--grisFonce);
     color: var(--blanc);
     z-index: 1;
 }
-
-
-/********************/
-/*******************
-    Mode Funky
-********************/
-.dark-mode-header-funky {
-    background-color: var(--orange);
+.accueilDark {
     color: white;
 }
-.sousBody-funky{
-    background-color: var(--jaune);
-    color: var(--rouge);
-    z-index: -1;
-}
-.btn-outline-secondary-funky{
-    background-color: var(--rouge);
-    color: whitesmoke;
-    border-color: var(--rouge);
-}
-.btn-primary-dark{
-    background-color: var(--gris);
-    border-color: var(--gris);
-    color: whitesmoke;
-}
-.btn-primary-funky{
-    background-color: var(--rouge);
-    border-color: var(--rouge);
-}
-/********************/
-#triangle{
-    display: inline-block;
-    height: 0;
-    width: 0;
-    border-top: 10px solid transparent;
-    border-right: 20px solid grey;
-    border-bottom: 10px solid transparent;
-}
-.triangleBis{
-    color: #000000;
-    display: inline-block;
-    position: relative;
-    top: -5px;
-}
-
-.retourAccueil{
-    position: relative;
-    height: 36px;
-    line-height: 43px;
-    width: 85px;
-    border: 1px solid grey;
-    border-radius: 3px;
-    margin-bottom: 10px;
-    padding-left: 2px;
-}
-.retourAccueil:hover{
-    background-color: lightgrey;
-}
-.retourAccueil:hover #triangle{
-    border-right: 20px solid black;
-}
-.retourAccueil:hover .triangleBis{
-    color: black;
-}
-.accueilDark{
-    color: white;
-}
-.btn-outline-secondary-dark{
+.btn-outline-secondary-dark {
     background-color: var(--grisClair);
     color: black;
     border-color: var(--grisClair);
 }
+.btn-primary-dark {
+    background-color: var(--gris);
+    border-color: var(--gris);
+    color: var(--navyBlue);
+}
+.btn-primary-dark:hover {
+    background-color: var(--navyBlue);
+    border-color: var(--gris);
+    color: whitesmoke;
+}
+.triangleBis-dark{
+    color: whitesmoke;
+}
+/********************/
+/*******************
+    Mode Funky
+********************/
+/*.dark-mode-header-funky {
+    background-color: var(--orange);
+    color: white;
+}
+
+.sousBody-funky {
+    background-color: var(--jaune);
+    color: var(--rouge);
+    z-index: -1;
+}
+
+.btn-outline-secondary-funky {
+    background-color: var(--rouge);
+    color: whitesmoke;
+    border-color: var(--rouge);
+}
+
+.btn-primary-funky {
+    background-color: var(--rouge);
+    border-color: var(--rouge);
+}
+*/

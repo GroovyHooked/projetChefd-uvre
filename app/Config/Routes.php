@@ -38,11 +38,11 @@ $routes->match(['get', 'post'],'forgotPass', 'Controller::forgotPass');
 $routes->match(['get', 'post'],'index', 'Controller::index');
 $routes->match(['get', 'post'], 'index', 'Dashboard::index');
 $routes->match(['get', 'post'], 'create', 'Dashboard::create');
-$routes->match(['get', 'post'], 'newcreate', 'Dashboard::newcreate');
+$routes->match(['get', 'post'], 'createdTest', 'Dashboard::createdTest');
 $routes->match(['get', 'post'], 'test', 'Dashboard::test');
 $routes->get('logout', 'Controller::logout');
 $routes->get('read', 'Dashboard::read');
-$routes->get('created', 'Dashboard::created');
+$routes->match(['get', 'post'],'created', 'Dashboard::created');
 $routes->get('used', 'Dashboard::used');
 $routes->get('pending', 'Dashboard::pending');
 $routes->get('clients', 'Dashboard::clients');
@@ -51,7 +51,7 @@ $routes->get('giftedclients', 'Dashboard::giftedclients');
 $routes->match(['get', 'post'], 'codeqr/(:any)', 'Dashboard::codeqr/$1');
 $routes->match(['get', 'post'], 'resetpass', 'Controller::resetpass');
 $routes->match(['get', 'post'], 'resetpass/(:any)', 'Controller::resetpass');
-
+$routes->match(['get', 'post'], 'accounting', 'Dashboard::accounting');
 
 
 

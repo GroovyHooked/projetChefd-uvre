@@ -8,12 +8,13 @@ class GiftedClient extends Model
 
     protected $primaryKey = 'id';
     protected $useAutoIncrement = true;
-    protected $allowedFields = ['user_email','client_email','firstname', 'lastname', 'email', 'address', 'phone'];
+    protected $allowedFields = ['user_email', 'client_email', 'firstname', 'lastname', 'email', 'address', 'phone'];
 
-    public function getGiftedClient($var){
+    public function getGiftedClient($var)
+    {
         return $this->select()
-                    ->where('user_email', $var)
-                    ->get()
-                    ->getResult();
+            ->where('user_email', $var)
+            ->get()
+            ->getResult();
     }
 }
