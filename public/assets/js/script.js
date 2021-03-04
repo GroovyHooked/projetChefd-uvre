@@ -21,7 +21,6 @@ window.addEventListener('load', () => {
             setTimeout(() => { startTimeParis() },500);
         }
         startTimeParis();
-
         function startTimeNY(){
             let today = new Date();
             let h = today.getHours(today.setHours(today.getHours() - 6))  ;
@@ -34,7 +33,6 @@ window.addEventListener('load', () => {
             setTimeout(() => { startTimeNY() },500);
         }
         startTimeNY();
-
         function startTimeTK(){
             let today = new Date();
             let h = today.getHours(today.setHours(today.getHours() + 8))  ;
@@ -79,7 +77,7 @@ window.addEventListener('load', () => {
             }
         });
     }
-    /* mechanism to show tooltips when asked for */
+    /* mechanism to show help when asked for */
     const helpButton = document.getElementById('helpMe');
     if (helpButton){
         const dashHelpButtons = document.querySelectorAll('.hiddenInfos');

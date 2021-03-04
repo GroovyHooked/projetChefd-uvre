@@ -162,7 +162,7 @@ class Dashboard extends BaseController
         $bdd = new Cards();
 
         $data = [
-            'users' => $bdd->whereIn('user_email', [$user_email])->paginate(5),
+            'users' => $bdd->whereIn('user_email', [$user_email])->orderBy('id', 'DESC')->paginate(5),
             'pager' => $bdd->pager,
             'user_email' => session()->get('email'),
             'title' => 'Carte émises',
@@ -242,6 +242,7 @@ Vous pouvez la télécharger en vous rendant à cette adresse: http://projetcert
             'title' => 'Cartes en circulation',
             'pending' => $bdd->whereIn('status', ['N'])
                              ->whereIn('user_email', [$userMail])
+                             ->orderBy('id', 'DESC')
                              ->paginate(5),
             'pager' => $bdd->pager,
         ];
@@ -256,7 +257,9 @@ Vous pouvez la télécharger en vous rendant à cette adresse: http://projetcert
         $bdd = new UserClient();
         $data = [
             'title' => 'Clients',
-            'clients' => $bdd->whereIn('user_email', [$user_email])->paginate(5),
+            'clients' => $bdd->whereIn('user_email', [$user_email])
+                             ->orderBy('id', 'DESC')
+                             ->paginate(5),
             'pager' => $bdd->pager,
         ];
 
@@ -309,7 +312,9 @@ Vous pouvez la télécharger en vous rendant à cette adresse: http://projetcert
         $user_email = session()->get('email');
         $data = [
             'title' => 'Bénéficiaires',
-            'clients' => $bdd->whereIn('user_email', [$user_email])->paginate(5),
+            'clients' => $bdd->whereIn('user_email', [$user_email])
+                             ->orderBy('id', 'DESC')
+                             ->paginate(5),
             'pager' => $bdd->pager,
         ];
         echo view('templates/header', $data);
@@ -380,13 +385,6 @@ Vous pouvez la télécharger en vous rendant à cette adresse: http://projetcert
         echo view('templates/footer');
     }
 
-    public function newcreate()
-    {
-        $data['title'] = 'creation';
-        echo view('templates/header', $data);
-        echo view('site/newcreate');
-        echo view('templates/footer');
-    }
 
     public function accounting()
     {
