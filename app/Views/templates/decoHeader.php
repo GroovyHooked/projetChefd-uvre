@@ -16,10 +16,10 @@
                 <div class="header-blue">
                     <nav class="navbar navbar-light bg-dark pt-3 pb-3">
                         <div class="container-fluid">
-                            <a class="text-white" href="/CI4/public">LOGO</a>
+                            <a class="text-white" href="<?= base_url('/') ?>">LOGO</a>
                             <div class="" id="navcol-1">
                                 <ul class="nav navbar-nav">
-                                    <li class="nav-item" role="presentation"><a class="nav-link text-white" href="/CI4/public/">Deconnexion</a></li>
+                                    <li class="nav-item" role="presentation"><a class="nav-link text-white" href="<?= base_url('/') ?>">Deconnexion</a></li>
                                 </ul>
                             </div>
                         </div>

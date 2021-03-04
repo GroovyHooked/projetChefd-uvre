@@ -20,9 +20,9 @@
                         <div class="row">
                             <div class="col-6 offset-3">
                                 <?php
-                                if (session()->get('success')) : ?>
+                                if (session()->get('successRest')) : ?>
                                     <div class="alert alert-success" role="alert">
-                                        <?= session()->get('success') ?>
+                                        <?= session()->get('successRest') ?>
                                     </div>
                                 <?php endif; ?>
                             </div>

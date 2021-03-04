@@ -9,23 +9,7 @@ use Endroid\QrCode\ErrorCorrectionLevel;
 use Endroid\QrCode\LabelAlignment;
 use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Response\QrCodeResponse;
-/********************
- *   SOMMAIRE
- *  method index      l36
- *  method create     l45
- *  method read       l151
- *  method created    l160
- *  method used       l210
- *  method pending    l227
- *  method clients    l243
- *  method codeqr     l259
- *  method giftedclients   l298
- *  method usedCard   l312
- *  method invalidCard    l321
- *  method test       l329
- *  method newcreate  l346
- *  method accounting l354
- * */
+
 class Dashboard extends BaseController
 {
     public function __construct()
@@ -82,7 +66,7 @@ class Dashboard extends BaseController
                 $status = 'N';
                 $isSent = 0;
 
-                $qrCode = new QrCode('http://projetcertification.ddns.net/codeqr/' . $qrcodeId );
+                $qrCode = new QrCode('http://projetcertification.ddns.net/codeqr/' . $qrcodeId /*.' Carte cadeau de Mr ou Mme ' . $giftedLastname . ' ' . $giftedFirstname . ', d\'une valeur de ' . $value . ' €. L\'identifiant de cette carte cadeau est le: ' . $qrcodeId*/);
                 $qrCode->setSize(300);
                 $qrCode->setMargin(10);
                 $qrCode->writeFile('qrcode/' . $qrcodeId . '.png');
@@ -136,6 +120,7 @@ class Dashboard extends BaseController
                 $message = 'Une carte d\un montant de ' . $value . ' vient d\'être générée';
                 send_telegram_callmebot($message);
 
+                #$data['test'] = d($clientData, $giftedData, $cardData);
                 $session = session();
                 $session->setFlashdata('successCard', 'Carte créée');
                 return redirect()->to('dashboard');
@@ -161,6 +146,7 @@ class Dashboard extends BaseController
         $user_email = session()->get('email');
         $bdd = new Cards();
 
+        //$test = $bdd->getSumCreated($user_email);
         $data = [
             'users' => $bdd->whereIn('user_email', [$user_email])->paginate(5),
             'pager' => $bdd->pager,
@@ -183,19 +169,15 @@ class Dashboard extends BaseController
                 $company = $row->company;
                 $clientFirstname = $row->clientFirstname;
                 $clientLastname = $row->clientLastname;
-                $cardUrl = $row->card_url;
 
                 $email = \Config\Services::email();
-                $email->setFrom('macminidethomas@gmail.com', 'Gift Cards Inc');
+                $email->setFrom('thomascariot@gmail.com', 'Thomas Cariot');
                 $email->setTo($giftedEmail);
                 $email->setSubject('Carte Cadeau à l\'attention de ' . $giftedFirstname . ' ' . $giftedLastname . ' .');
-                $email->setMessage($giftedFirstname. ' ' .$giftedLastname.', 
-Carte cadeau de l\'établissement '.$company.' d\'une valeur de ' . $giftedValue . ' €. 
-Cette carte cadeau vous a été offerte par ' . $clientFirstname . ' '.$clientLastname.'. 
-Voici son adresse mail: '. $client_email. '. 
-Vous pouvez la télécharger en vous rendant à cette adresse: http://projetcertification.ddns.net/'.$cardUrl.' ');
+                $email->setMessage('Carte cadeau de l\'établissement '.$company.' d\'une valeur de ' . $giftedValue . ' €. Cette carte cadeau vous a été offerte par ' . $clientFirstname . ' '.$clientLastname.'. Voici son adresse mail: '. $client_email. ' ');
                 $email->send();
-
+                #$test1 = $email->send();
+                #$data['test1'] = $test1;
             }
             $session = session();
             $session->setFlashdata('successMail', 'Carte envoyée par mail');
@@ -208,24 +190,13 @@ Vous pouvez la télécharger en vous rendant à cette adresse: http://projetcert
             echo view('templates/footer');
         }
     }
-    public function qrcode($var)
-    {
-        $data['title'] = 'Carte Code QR';
-        echo view('templates/header', $data);
-        echo base_url('qrcode').'/'.$var;
-        echo view('templates/footer');
-
-    }
 
     public function used()
     {
         $bdd = new Cards();
-        $userMail = session()->get('email');
         $data = [
             'title' => 'Cartes utilisées',
-            'used' => $bdd->whereIn('status', ['U'])
-                          ->whereIn('user_email', [$userMail])
-                          ->paginate(5),
+            'used' => $bdd->whereIn('status', ['U'])->paginate(5),
             'pager' => $bdd->pager,
         ];
 
@@ -237,12 +208,9 @@ Vous pouvez la télécharger en vous rendant à cette adresse: http://projetcert
     public function pending()
     {
         $bdd = new Cards();
-        $userMail = session()->get('email');
         $data = [
             'title' => 'Cartes en circulation',
-            'pending' => $bdd->whereIn('status', ['N'])
-                             ->whereIn('user_email', [$userMail])
-                             ->paginate(5),
+            'pending' => $bdd->whereIn('status', ['N'])->paginate(5),
             'pager' => $bdd->pager,
         ];
         echo view('templates/header', $data);
@@ -268,35 +236,28 @@ Vous pouvez la télécharger en vous rendant à cette adresse: http://projetcert
 
     public function codeqr($qrId)
     {
+
+        $data['title'] = 'codeQR';
         $bdd = new Cards();
-        $user = session()->get('email');
-        $codeqrVerif = $bdd->getCardCodeQr($user, $qrId);
+        $data['codeqr'] = $bdd->getCardCodeQr($qrId);
         $status = $bdd->verifyCardStatus($qrId);
-        $data = [
-            'codeqr' => $bdd->getCardCodeQr($user, $qrId),
-            'status' => $bdd->verifyCardStatus($qrId)
-        ];
-        if ($status == 'N' && $codeqrVerif) {
+        $data['status'] = $status;
+        if ($status == 'N') {
             if ($this->request->getMethod() == 'post') {
-                $data['title'] = 'codeQR';
+
                 $bdd = new Cards();
                 $bdd->updateCardStatus($qrId);
                 $session = session();
                 $session->setFlashdata('success', 'Carte Utilisée');
             }
-
             echo view('templates/header', $data);
             echo view('site/codeqr');
             echo view('templates/footer');
-
-        } elseif ($status == 'U' && $codeqrVerif) {
-            $data['title'] = 'codeQR';
+        } elseif ($status == 'U') {
             echo view('templates/header', $data);
             echo view('site/usedCards');
             echo view('templates/footer');
-
-        } elseif ($status == NULL || !$codeqrVerif) {
-            $data['title'] = 'codeQR';
+        } elseif ($status == NULL) {
             echo view('templates/header', $data);
             echo view('errors/invalidCard');
             echo view('templates/footer');
@@ -334,37 +295,27 @@ Vous pouvez la télécharger en vous rendant à cette adresse: http://projetcert
         echo view('templates/footer');
     }
 
-    public function contact()
+    public function test()
     {
-        helper(['whatsapp']);
+        #helper(['whatsapp', 'form']);
         $data['title'] = 'test';
         if ($this->request->getMethod() == 'post') {
-            $rules = [
-                'telnumber' => 'required',
-                'message' => 'required'
-            ];
-            if (!$this->validate($rules)) {
-            $data['validation'] = $this->validator;
-            } else {
-                $message = $this->request->getVar('message');
-                $phoneNumber = $this->request->getVar('telnumber');
-                $problem = $this->request->getVar('problem');
-                #send_whatsapp_callmebot($message);
-                $global = $problem .' + ' . $phoneNumber . ' + ' . $message;
-                send_telegram_callmebot($global);
-                $session = session();
-                $session->setFlashdata('successTelBot', 'Message envoyé');
-            }
+            $message = $this->request->getVar('test');
+            #send_whatsapp_callmebot($message);
+            send_telegram_callmebot($message);
+            $session = session();
+            $session->setFlashdata('successTelBot', 'Message envoyé');
+
         }
         echo view('templates/header', $data);
-        echo view('site/contact', $data);
+        echo view('site/test', $data);
         echo view('templates/footer');
     }
 
     public function newcreate()
     {
         $data['title'] = 'creation';
-        echo view('templates/header', $data);
+        echo view('templates/Header', $data);
         echo view('site/newcreate');
         echo view('templates/footer');
     }
@@ -377,14 +328,16 @@ Vous pouvez la télécharger en vous rendant à cette adresse: http://projetcert
         $totalUsed = $bdd->getSumUsed($user_email);
         $totalPending = $bdd->getSumPending($user_email);
         $nbOfCards = $bdd->howManyCardsSold($user_email);
+        #$data['test'] = d($total, $totalUsed, $totalPending);
         $data = [
             'title' => 'Comptabilité',
             'total' => $total,
             'totalUsed' => $totalUsed,
             'totalPending' => $totalPending,
             'nbOfCards' => $nbOfCards
+            #'test' => d($total, $totalUsed, $totalPending)
         ];
-        echo view('templates/header', $data);
+        echo view('templates/Header', $data);
         echo view('site/accounting');
         echo view('templates/footer');
     }

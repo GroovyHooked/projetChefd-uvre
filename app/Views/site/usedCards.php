@@ -1,7 +1,7 @@
 <?php
 foreach ($codeqr as $row) {
 ?>
-<div class="container">
+<div class="container mt-3 mb-3">
     <div class="row">
         <div class="col-6 offset-1 offset-sm-3 offset-lg-4">
             <div class="card" style="width: 18rem;">

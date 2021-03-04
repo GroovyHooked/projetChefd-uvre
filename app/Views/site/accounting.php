@@ -1,10 +1,3 @@
-<?php if (isset($test)) : ?>
-    <div class="col-12">
-        <div class="alert alert-sucess">
-            <?= var_dump($test) ?>
-        </div>
-    </div>
-<?php endif; ?>
 <div class="container">
     <div class="row">
         <div class="col-12">
@@ -70,7 +63,7 @@
             <?php foreach ($nbOfCards as $row) {
                 if ($row->user_email != 0) {
                     ?>
-                    <p class="text-center">Vous avez vendu un total de <?= $row->user_email ?> cartes cadeau</p>
+                    <p class="text-center d-block mb-0">Vous avez vendu un total de <?= $row->user_email ?> cartes cadeau</p>
                 <?php } else { ?>
                     <p class="text-center">Vous n'avez pas encore généré de cartes cadeau</p>
                 <?php }

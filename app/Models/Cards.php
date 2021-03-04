@@ -61,25 +61,11 @@ class Cards extends Model
                     ->get()
                     ->getResult();
     }
-    public function getUsedCards($var)
-    {
-        return $this->where('status', 'U')
-                    ->where('user_email', $var)
-                    ->get()
-                    ->getResult();
-    }
 
-    public function getPendingCards($var)
+    public function getCardCodeQr($varU, $varC)
     {
-        return $this->where('status', 'N')
-                    ->where('user_email', $var)
-                    ->get()
-                    ->getResult();
-    }
-
-    public function getCardCodeQr($var)
-    {
-        return $this->where('card_uniqid', $var)
+        return $this->where('user_email', $varU)
+                    ->where('card_uniqid', $varC)
                     ->get()
                     ->getResult();
     }

@@ -21,7 +21,7 @@ class App extends BaseConfig
 	| environments.
 	|
 	*/
-	public $baseURL = 'http://localhost/CI4/public';
+	public $baseURL = 'http://projetcertification.ddns.net';
 
 	/*
 	|--------------------------------------------------------------------------
@@ -63,7 +63,7 @@ class App extends BaseConfig
 	| should run under for this request.
 	|
 	*/
-	public $defaultLocale = 'en';
+	public $defaultLocale = 'fr';
 
 	/*
 	|--------------------------------------------------------------------------
@@ -88,7 +88,7 @@ class App extends BaseConfig
 	| found, the first locale will be used.
 	|
 	*/
-	public $supportedLocales = ['en'];
+	public $supportedLocales = ['fr'];
 
 	/*
 	|--------------------------------------------------------------------------

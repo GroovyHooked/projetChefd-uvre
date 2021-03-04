@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <form action="<?= site_url('create') ?>" method="post" id="loginFormCreate">
+            <form action="<?= base_url('create') ?>" method="post" id="loginFormCreate">
                 <div class="container">
                     <div class="row">
                         <div class="col-12 mt-3">
@@ -173,7 +173,7 @@
                     <div class="row justify-content-center">
                         <div class="form-group">
                             <div class="col-12">
-                                <a href="<?= site_url('dashboard') ?>">Retour au tableau de bord</a>
+                                <a href="<?= base_url('dashboard') ?>">Retour au tableau de bord</a>
                             </div>
                         </div>
                     </div>

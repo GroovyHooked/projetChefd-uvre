@@ -54,7 +54,7 @@
                                 <a class="dropdown-item" href="<?= base_url('clients') ?>">Clients</a>
                                 <a class="dropdown-item" href="<?= base_url('accounting') ?>">Comptabilité</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="<?= site_url('logout') ?>">Deconnexion</a>
+                                <a class="dropdown-item" href="<?= base_url('logout') ?>">Deconnexion</a>
                             </div>
                         </div>
                     <?php else : ?>
@@ -69,7 +69,7 @@
                         <div class="" id="navcol-1">
                             <ul class="nav navbar-nav">
                                 <li class="nav-item" role="presentation"><a class="nav-link text-white"
-                                                                            href="<?= site_url('register') ?>">Inscription</a>
+                                                                            href="<?= base_url('register') ?>">Inscription</a>
                                 </li>
                             </ul>
                         </div>

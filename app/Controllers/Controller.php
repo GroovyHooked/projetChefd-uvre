@@ -5,7 +5,16 @@ namespace App\Controllers;
 use App\Models\UserModel;
 use CodeIgniter\I18n\Time;
 use CodeIgniter\HTTP\Request;
-
+/********************
+ *   SOMMAIRE
+ *  method index            l26
+ *  method setUserSession   l55
+ *  method forgotPass       l69
+ *  method register         l115
+ *  method resetpass        l153
+ *  method logout           l214
+ *
+ * */
 
 class Controller extends BaseController
 {
@@ -78,7 +87,7 @@ class Controller extends BaseController
                     return redirect()->to('forgotPass');
                 } else {
                     $session = session();
-                    $session->setFlashdata('success', 'Mail de réinitialisation envoyé');
+                    $session->setFlashdata('successRest', 'Mail de réinitialisation envoyé');
                     $token = uniqid();
                     $time = Time::parse('now + 10 minute', 'Europe/Paris');
                     $token_exp = $time->toDateTimeString();
@@ -89,7 +98,7 @@ class Controller extends BaseController
                     $email->setFrom('thomascariot@gmail.com', 'Thomas Cariot');
                     $email->setTo($user_email);
                     $email->setSubject('Réinitialisation de mot de passe');
-                    $email->setMessage('Rendez vous à cette adresse pour la réinitialisation de votre mot de passe. http://localhost/CI4/public/resetpass?token=' . $token);
+                    $email->setMessage('Rendez vous à cette adresse pour la réinitialisation de votre mot de passe. http://projetcertification.ddns.net/resetpass?token=' . $token);
                     $email->send();
 
                     echo view('templates/header', $data);
@@ -132,18 +141,18 @@ class Controller extends BaseController
                 $bdd->save($newData);
 
                 $session = session();
-                $session->setFlashdata('success', 'Inscription réussie');
+                $session->setFlashdata('successRegist', 'Inscription réussie');
                 return redirect()->to('index');
             }
         }
-        echo view('templates/Header', $data);
+        echo view('templates/header', $data);
         echo view('site/register');
         echo view('templates/footer');
     }
 
     public function resetpass()
     {
-        /* récupération du token dans l'url */
+        /* Token recovery in URL */
         $request = \Config\Services::request();
         $token = $request->getGet();
         $data['token'] = $token;
@@ -160,7 +169,6 @@ class Controller extends BaseController
 
         if ($tokenExist && $tokenTime > $time) {
             $data = [
-                /*'message' => 'ça fonctionne',*/
                 'title' => "Réinitialisation du mot de passe",
                 'token' => $token,
                 'tokenExist' => $tokenExist,
@@ -183,11 +191,11 @@ class Controller extends BaseController
                     $bdd->updatePassword($password, $userMail);
 
                     $session = session();
-                    $session->setFlashdata('success', 'Mot de passe modifié');
+                    $session->setFlashdata('successModif', 'Mot de passe modifié');
                     return redirect()->to('index');
                 }
             }
-            echo view('templates/Header', $data);
+            echo view('templates/header', $data);
             echo view('site/resetpass');
             echo view('templates/footer');
 
@@ -196,7 +204,7 @@ class Controller extends BaseController
                 'messageAlert' => 'Le lien de réinitialisation n\'est plus actif, veuillez redémarrer la procédure de réinitialisation.',
                 'title' => "Réinitialisation du mot de passe"
             ];
-            echo view('templates/Header', $data);
+            echo view('templates/header', $data);
             echo view('site/resetpass');
             echo view('templates/footer');
         }

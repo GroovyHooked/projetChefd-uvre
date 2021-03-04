@@ -19,7 +19,7 @@
                         <label for="avatar">Accédez à votre appareil photo</label>
                     </div>
                     <div class="col-12">
-                        <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg">
+                        <input type="file" id="avatar" name="avatar" accept="image/*">
                     </div>
                 </div>
             </div>
@@ -27,9 +27,10 @@
         <div class="container mt-5">
             <div class="row">
                 <div class="col-12 text-center">
-                    <a href="/CI4/public/dashboard">Retour au tableau de bord</a>
+                    <a href="<?= base_url('dashboard') ?>">Retour au tableau de bord</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<div style="width: 500px" id="reader"></div>

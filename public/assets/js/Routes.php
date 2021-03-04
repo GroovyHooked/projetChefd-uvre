@@ -39,7 +39,7 @@ $routes->match(['get', 'post'],'index', 'Controller::index');
 $routes->match(['get', 'post'], 'index', 'Dashboard::index');
 $routes->match(['get', 'post'], 'create', 'Dashboard::create');
 $routes->match(['get', 'post'], 'createdTest', 'Dashboard::createdTest');
-$routes->match(['get', 'post'], 'contact', 'Dashboard::contact');
+$routes->match(['get', 'post'], 'test', 'Dashboard::test');
 $routes->get('logout', 'Controller::logout');
 $routes->get('read', 'Dashboard::read');
 $routes->match(['get', 'post'],'created', 'Dashboard::created');
@@ -52,7 +52,6 @@ $routes->match(['get', 'post'], 'codeqr/(:any)', 'Dashboard::codeqr/$1');
 $routes->match(['get', 'post'], 'resetpass', 'Controller::resetpass');
 $routes->match(['get', 'post'], 'resetpass/(:any)', 'Controller::resetpass');
 $routes->match(['get', 'post'], 'accounting', 'Dashboard::accounting');
-$routes->match(['get', 'post'], 'qrcode/(:any)', 'Dashboard::qrcode/$1');
 
 
 

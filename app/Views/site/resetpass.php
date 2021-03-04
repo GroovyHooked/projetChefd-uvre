@@ -3,7 +3,7 @@
         <div class="col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3 mt-5 pb-3 form-wrapper pt-4">
             <div class="container">
                 <h3 class="text-center">Modification du mot de passe</h3>
-                <?php if (session()->get('isLoggedIn')) : ?>
+                <?php if (isset($token)) : ?>
                 <form class="" action="<?= base_url('resetpass?token='.$token['token'])?>" method="post">
                 <?php else : ?>
                 <form class="" action="<?= base_url('resetpass')?>" method="post">
@@ -53,7 +53,7 @@
                             <button type="submit" class="btn btn-outline-secondary">Envoyer</button>
                         </div>
                         <div class="col-12 col-sm-8 text-right">
-                            <a href="/CI4/public">Page de connexion</a>
+                            <a href="<?= base_url('public') ?>">Page de connexion</a>
                         </div>
                     </div>
                 </form>

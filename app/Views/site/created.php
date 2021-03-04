@@ -26,9 +26,9 @@ use App\Models\Cards;
             <div class="row">
                 <div class="col-6 offset-3">
                     <?php
-                    if (session()->get('success')) : ?>
+                    if (session()->get('successMail')) : ?>
                         <div class="alert alert-success" role="alert">
-                            <?= session()->get('success') ?>
+                            <?= session()->get('successMail') ?>
                         </div>
                     <?php endif; ?>
                 </div>
