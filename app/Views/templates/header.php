@@ -37,7 +37,7 @@
                             </button>
                         </div>
                         <div class="dropdown">
-                            <button class="btn btn-outline-dark dropdown-toggle"
+                            <button class="btn btn-outline-dark btn-outline-secondary dropdown-toggle"
                                     type="button" id="dropdownMenu1" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="false">
                                 <?= session()->get('firstname') ?> <?= session()->get('lastname') ?>

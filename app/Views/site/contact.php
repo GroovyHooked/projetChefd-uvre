@@ -16,6 +16,35 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-12">
+            <img src="<?= base_url('/assets/images/supportBis.png') ?>" alt="dessin de technicien" id="imgContact">
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-6 offset-3">
+            <?php
+            if (session()->get('successTelBot')) : ?>
+                <div class="alert alert-success" role="alert">
+                    <?= session()->get('successTelBot') ?>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-6 offset-3">
+            <?php
+            if (session()->get('successSentMail')) : ?>
+                <div class="alert alert-success" role="alert">
+                    <?= session()->get('successSentMail') ?>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
 </div>
 <?php if (isset($validation)) : ?>
     <div class="col-12">
@@ -26,11 +55,11 @@
 <?php endif; ?>
 <div class="container">
     <div class="row">
-        <div class="col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3 mt-0 pb-3 form-wrapper pt-4">
+        <div class="col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3 pb-3 form-wrapper" id="contactForm">
             <div class="container">
                 <div class="row justify-content-center">
                     <h3>Formulaire de Contact</h3>
-                    <?= form_open('test', 'class="helpForm border pt-3 " id="helpFormId"') ?>
+                    <?= form_open('contact', 'class="helpForm border pt-3" id="helpFormId"') ?>
                     <div class="form-group">
                         <p class="text-center">Indiquez l'origine de votre problème </p>
                         <div class="container">

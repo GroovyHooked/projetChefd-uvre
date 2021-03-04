@@ -79,6 +79,19 @@ window.addEventListener('load', () => {
             }
         });
     }
+    /* mechanism to show tooltips when asked for */
+    const helpButton = document.getElementById('helpMe');
+    if (helpButton){
+        const dashHelpButtons = document.querySelectorAll('.hiddenInfos');
+        helpButton.addEventListener('click', ()=> {
+            dashHelpButtons.forEach(element => element.classList.toggle('displayHelp'));
+            if(helpButton.innerText === 'Aide'){
+                helpButton.innerText = 'Fermer';
+            } else {
+                helpButton.innerText = 'Aide';
+            }
+        });
+    }
     const myFisrtButton = document.querySelector('#btn-dark1');
     const myHeader = document.querySelector('#header');
     const myFooter = document.querySelector('#footer');

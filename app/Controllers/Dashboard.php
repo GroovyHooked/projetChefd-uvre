@@ -284,7 +284,7 @@ Vous pouvez la télécharger en vous rendant à cette adresse: http://projetcert
                 $session = session();
                 $session->setFlashdata('success', 'Carte Utilisée');
             }
-
+            $data['title'] = 'codeQR';
             echo view('templates/header', $data);
             echo view('site/codeqr');
             echo view('templates/footer');
@@ -337,24 +337,43 @@ Vous pouvez la télécharger en vous rendant à cette adresse: http://projetcert
     public function contact()
     {
         helper(['whatsapp']);
-        $data['title'] = 'test';
+        $data['title'] = 'Contact';
         if ($this->request->getMethod() == 'post') {
-            $rules = [
-                'telnumber' => 'required',
-                'message' => 'required'
-            ];
-            if (!$this->validate($rules)) {
-            $data['validation'] = $this->validator;
+            if (session()->get('isLoggedIn')){
+                $rules = [
+                    'telnumber' => 'required',
+                    'message' => 'required'
+                ];
+                if (!$this->validate($rules)) {
+                    $data['validation'] = $this->validator;
+                } else {
+                    $message = $this->request->getVar('message');
+                    $phoneNumber = $this->request->getVar('telnumber');
+                    $problem = $this->request->getVar('problem');
+                    #send_whatsapp_callmebot($message);
+                    $global = $problem .' + ' . $phoneNumber . ' + ' . $message;
+                    send_telegram_callmebot($global);
+                    $session = session();
+                    $session->setFlashdata('successTelBot', 'Votre message a bien été envoyé, un technicien vous contactera dans les plus brefs délais.');
+                    return redirect()->to('contact');
+                }
             } else {
+
+                $email = \Config\Services::email();
                 $message = $this->request->getVar('message');
                 $phoneNumber = $this->request->getVar('telnumber');
                 $problem = $this->request->getVar('problem');
-                #send_whatsapp_callmebot($message);
                 $global = $problem .' + ' . $phoneNumber . ' + ' . $message;
-                send_telegram_callmebot($global);
+                $email->setFrom('thomascariot@gmail.com', 'Thomas Cariot');
+                $email->setTo('thomascariot@gmail.com');
+                $email->setSubject('Email de support');
+                $email->setMessage($global);
+                $email->send();
                 $session = session();
-                $session->setFlashdata('successTelBot', 'Message envoyé');
+                $session->setFlashdata('successSentMail', 'Votre message a bien été envoyé, un technicien vous contactera dans les plus brefs délais.');
+                return redirect()->to('contact');
             }
+
         }
         echo view('templates/header', $data);
         echo view('site/contact', $data);

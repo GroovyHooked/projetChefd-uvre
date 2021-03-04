@@ -1,7 +1,7 @@
 </div>
 <footer class="py-4 flex-shrink-0 footer" id="footer">
     <div class="container text-center">
-        <p class="text-white mb-n5">App en développement / <a href="<?= base_url('contact')?>" class="text-center mt-5 border-bottom">Aide</a></p>
+        <p class="text-white mb-n5">App en développement / <a href="<?= base_url('contact')?>" class="text-center mt-5 border-bottom">Support</a></p>
     </div>
 
 </footer>

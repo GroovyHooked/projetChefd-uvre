@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+/* Used to create expiration date for the forgotPass method  */
 use CodeIgniter\I18n\Time;
 use CodeIgniter\HTTP\Request;
 /********************
@@ -94,6 +95,7 @@ class Controller extends BaseController
                     $bdd = new UserModel();
                     $user_email = $this->request->getVar('email');
                     $bdd->insertTokenData($token, $token_exp, $user_email);
+                    /* Class called at the beginning of the file */
                     $email = \Config\Services::email();
                     $email->setFrom('thomascariot@gmail.com', 'Thomas Cariot');
                     $email->setTo($user_email);
