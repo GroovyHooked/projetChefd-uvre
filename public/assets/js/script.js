@@ -83,8 +83,11 @@ window.addEventListener('load', () => {
     const helpButton = document.getElementById('helpMe');
     if (helpButton){
         const dashHelpButtons = document.querySelectorAll('.hiddenInfos');
+        const dashBottomHelpButtons = document.querySelectorAll('.hiddenInfosBottom');
         helpButton.addEventListener('click', ()=> {
             dashHelpButtons.forEach(element => element.classList.toggle('displayHelp'));
+            dashBottomHelpButtons.forEach(element => element.classList.toggle('displayHelp'));
+            dashBottomHelpButtons.forEach(element => element.classList.toggle('displayBottomHelp'));
             if(helpButton.innerText === 'Aide'){
                 helpButton.innerText = 'Fermer';
             } else {

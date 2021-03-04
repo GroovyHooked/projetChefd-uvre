@@ -161,7 +161,7 @@
             <div class="container mb-5">
                 <div class="row">
                     <div class="col-12 mb-3 mb-lg-0 col-lg-6 text-center">
-                        <div class="col-12 mb-0 hiddenInfos">
+                        <div class="col-12 mb-0 hiddenInfosBottom">
                             <p class="text-center">Liste de toutes les cartes</p>
                         </div>
                         <div class="dashButtonDiv">
@@ -184,7 +184,7 @@
                         </div>
                     </div>
                     <div class="col-12 mt-3 mt-lg-0 col-lg-6 text-center">
-                        <div class="col-12 mb-0 hiddenInfos">
+                        <div class="col-12 mb-0 hiddenInfosBottom">
                             <p class="text-center">Liste des cartes utilisées</p>
                         </div>
                         <div class="dashButtonDiv">
@@ -211,7 +211,7 @@
             <div class="container mb-5">
                 <div class="row">
                     <div class="col-12 mb-3 mb-lg-0 col-lg-6 text-center">
-                        <div class="col-12 mb-0 hiddenInfos">
+                        <div class="col-12 mb-0 hiddenInfosBottom">
                             <p class="text-center">Liste des cartes non-utilisées</p>
                         </div>
                         <div class="dashButtonDiv">
@@ -236,7 +236,7 @@
                         </div>
                     </div>
                     <div class="col-12 mt-3 mt-lg-0 col-lg-6 text-center">
-                        <div class="col-12 mb-0 hiddenInfos">
+                        <div class="col-12 mb-0 hiddenInfosBottom">
                             <p class="text-center">Informations sur les ventes</p>
                         </div>
                         <div class="dashButtonDiv">

@@ -286,11 +286,51 @@ span.ccc{
    End of transitions
     ******************/
 /*        AIDE         */
+
 .hiddenInfos{
     display: none;
 }
+.hiddenInfosBottom{
+    display: none;
+}
+.displayHelp:after{
+    position: absolute;
+    content: '';
+    height: 0;
+    width: 0;
+    left: 47%;
+    top: 75%;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 13px solid var(--mandarin);
+}
+@media screen and (min-width: 547px) {
+    .displayHelp:after{
+        position: absolute;
+        content: '';
+        height: 0;
+        width: 0;
+        left: 47%;
+        top: 55%;
+        border-left: 7px solid transparent;
+        border-right: 7px solid transparent;
+        border-top: 13px solid var(--mandarin);
+    }
+}
+.displayBottomHelp:after{
+    position: absolute;
+    content: '';
+    height: 0;
+    width: 0;
+    left: 47%;
+    top: 90%;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 13px solid var(--mandarin);
+}
 .displayHelp {
     display: block;
+    position: relative;
 }
 /****************
    Dashboard Buttons
@@ -340,6 +380,7 @@ span.ccc{
     }
 
 }
+
 @media  screen and (min-width: 1000px) {
     .prez{
         position: absolute;

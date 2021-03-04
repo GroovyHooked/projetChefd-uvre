@@ -59,7 +59,7 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <h3>Formulaire de Contact</h3>
-                    <?= form_open('contact', 'class="helpForm border pt-3" id="helpFormId"') ?>
+                    <?= form_open('contact', 'class="helpForm border pt-3 pl-3 pr-3" id="helpFormId"') ?>
                     <div class="form-group">
                         <p class="text-center">Indiquez l'origine de votre problème </p>
                         <div class="container">
