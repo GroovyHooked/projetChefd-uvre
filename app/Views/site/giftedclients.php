@@ -75,5 +75,21 @@
             </table>
             <?= $pager->links() ?>
         </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="btn-group dropup mb-2">
+                    <button type="button" class="btn btn-outline-dark btn-outline-secondary dropdown-toggle paginationButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Résultats/Page
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="<?= base_url('giftedclients/5')?>">5</a>
+                        <a class="dropdown-item" href="<?= base_url('giftedclients/10')?>">10</a>
+                        <a class="dropdown-item" href="<?= base_url('giftedclients/15')?>">15</a>
+                        <a class="dropdown-item" href="<?= base_url('giftedclients/20')?>">20</a>
+                        <a class="dropdown-item" href="<?= base_url('giftedclients/100')?>">100</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

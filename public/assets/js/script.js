@@ -17,7 +17,7 @@ window.addEventListener('load', () => {
 
             m = formatTime(m);
             s = formatTime(s);
-            document.getElementById('myClock').innerHTML = h + ":" + m + ":" + s;
+            myClock.innerHTML = h + ":" + m + ":" + s;
             setTimeout(() => { startTimeParis() },500);
         }
         startTimeParis();
@@ -29,7 +29,7 @@ window.addEventListener('load', () => {
 
             m = formatTime(m);
             s = formatTime(s);
-            document.getElementById('myClockNY').innerHTML = h + ":" + m + ":" + s;
+            myClock.innerHTML = h + ":" + m + ":" + s;
             setTimeout(() => { startTimeNY() },500);
         }
         startTimeNY();
@@ -41,7 +41,7 @@ window.addEventListener('load', () => {
 
             m = formatTime(m);
             s = formatTime(s);
-            document.getElementById('myClockTK').innerHTML = h + ":" + m + ":" + s;
+            myClock.innerHTML = h + ":" + m + ":" + s;
             setTimeout(() => { startTimeTK() },500);
         }
         startTimeTK();

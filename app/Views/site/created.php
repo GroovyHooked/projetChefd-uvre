@@ -50,9 +50,9 @@ use App\Models\Cards;
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($users
-
-                as $row) { ?>
+                <?php
+                foreach ($users as $row) {
+                    ?>
                 <form action="<?= base_url('created') ?>" method="post">
                     <tr>
                         <th scope="row">
@@ -149,6 +149,22 @@ use App\Models\Cards;
                 </form>
             </table>
             <?= $pager->links() ?>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="btn-group dropup mb-2">
+                    <button type="button" class="btn btn-outline-dark btn-outline-secondary dropdown-toggle paginationButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Résultats/Page
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="<?= base_url('created/5')?>">5</a>
+                        <a class="dropdown-item" href="<?= base_url('created/10')?>">10</a>
+                        <a class="dropdown-item" href="<?= base_url('created/15')?>">15</a>
+                        <a class="dropdown-item" href="<?= base_url('created/20')?>">20</a>
+                        <a class="dropdown-item" href="<?= base_url('created/100')?>">100</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

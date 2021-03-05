@@ -156,17 +156,19 @@ class Dashboard extends BaseController
         echo view('templates/footer');
     }
 
-    public function created()
+    public function created($var = 5)
     {
         $user_email = session()->get('email');
         $bdd = new Cards();
 
-        $data = [
-            'users' => $bdd->whereIn('user_email', [$user_email])->orderBy('id', 'DESC')->paginate(5),
-            'pager' => $bdd->pager,
-            'user_email' => session()->get('email'),
-            'title' => 'Carte émises',
-        ];
+            $data = [
+                'users' => $bdd->whereIn('user_email', [$user_email])->orderBy('id', 'DESC')->paginate($var),
+                'pager' => $bdd->pager,
+                'user_email' => session()->get('email'),
+                'title' => 'Carte émises',
+            ];
+
+
         if ($this->request->getMethod() == 'post') {
             $id = $this->request->getVar('personnalId');
 
@@ -217,7 +219,7 @@ Vous pouvez la télécharger en vous rendant à cette adresse: http://projetcert
 
     }
 
-    public function used()
+    public function used($var = 5)
     {
         $bdd = new Cards();
         $userMail = session()->get('email');
@@ -225,7 +227,7 @@ Vous pouvez la télécharger en vous rendant à cette adresse: http://projetcert
             'title' => 'Cartes utilisées',
             'used' => $bdd->whereIn('status', ['U'])
                           ->whereIn('user_email', [$userMail])
-                          ->paginate(5),
+                          ->paginate($var),
             'pager' => $bdd->pager,
         ];
 
@@ -234,7 +236,7 @@ Vous pouvez la télécharger en vous rendant à cette adresse: http://projetcert
         echo view('templates/footer');
     }
 
-    public function pending()
+    public function pending($var = 5)
     {
         $bdd = new Cards();
         $userMail = session()->get('email');
@@ -243,7 +245,7 @@ Vous pouvez la télécharger en vous rendant à cette adresse: http://projetcert
             'pending' => $bdd->whereIn('status', ['N'])
                              ->whereIn('user_email', [$userMail])
                              ->orderBy('id', 'DESC')
-                             ->paginate(5),
+                             ->paginate($var),
             'pager' => $bdd->pager,
         ];
         echo view('templates/header', $data);
@@ -251,7 +253,7 @@ Vous pouvez la télécharger en vous rendant à cette adresse: http://projetcert
         echo view('templates/footer');
     }
 
-    public function clients()
+    public function clients($var = 5)
     {
         $user_email = session()->get('email');
         $bdd = new UserClient();
@@ -259,7 +261,7 @@ Vous pouvez la télécharger en vous rendant à cette adresse: http://projetcert
             'title' => 'Clients',
             'clients' => $bdd->whereIn('user_email', [$user_email])
                              ->orderBy('id', 'DESC')
-                             ->paginate(5),
+                             ->paginate($var),
             'pager' => $bdd->pager,
         ];
 
@@ -306,7 +308,7 @@ Vous pouvez la télécharger en vous rendant à cette adresse: http://projetcert
         }
     }
 
-    public function giftedclients()
+    public function giftedclients($var = 5)
     {
         $bdd = new GiftedClient();
         $user_email = session()->get('email');
@@ -314,7 +316,7 @@ Vous pouvez la télécharger en vous rendant à cette adresse: http://projetcert
             'title' => 'Bénéficiaires',
             'clients' => $bdd->whereIn('user_email', [$user_email])
                              ->orderBy('id', 'DESC')
-                             ->paginate(5),
+                             ->paginate($var),
             'pager' => $bdd->pager,
         ];
         echo view('templates/header', $data);

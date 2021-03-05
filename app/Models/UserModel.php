@@ -37,7 +37,7 @@ class UserModel extends Model
     public function getUserData($var)
     {
         return $this->where('email', $var)
-            ->first();
+                    ->first();
     }
 
     public function checkIfUserExist($var)
